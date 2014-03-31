@@ -21,6 +21,7 @@
 		B605175A187CACDB00BC168F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B605173C187CACDA00BC168F /* UIKit.framework */; };
 		B6051762187CACDB00BC168F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6051760187CACDB00BC168F /* InfoPlist.strings */; };
 		B6051764187CACDB00BC168F /* HTTPExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B6051763187CACDB00BC168F /* HTTPExampleTests.m */; };
+		B6051770187CF0F100BC168F /* HttpCommHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B605176F187CF0F100BC168F /* HttpCommHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,9 @@
 		B605175F187CACDB00BC168F /* HTTPExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HTTPExampleTests-Info.plist"; sourceTree = "<group>"; };
 		B6051761187CACDB00BC168F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B6051763187CACDB00BC168F /* HTTPExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTTPExampleTests.m; sourceTree = "<group>"; };
+		B605176D187CAD5D00BC168F /* HTTPConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTTPConstants.h; sourceTree = "<group>"; };
+		B605176E187CF0F100BC168F /* HttpCommHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpCommHandler.h; sourceTree = "<group>"; };
+		B605176F187CF0F100BC168F /* HttpCommHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpCommHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,7 @@
 		B605172C187CACDA00BC168F = {
 			isa = PBXGroup;
 			children = (
+				B605176D187CAD5D00BC168F /* HTTPConstants.h */,
 				B605173E187CACDA00BC168F /* HTTPExample */,
 				B605175D187CACDB00BC168F /* HTTPExampleTests */,
 				B6051737187CACDA00BC168F /* Frameworks */,
@@ -112,6 +117,8 @@
 		B605173E187CACDA00BC168F /* HTTPExample */ = {
 			isa = PBXGroup;
 			children = (
+				B605176E187CF0F100BC168F /* HttpCommHandler.h */,
+				B605176F187CF0F100BC168F /* HttpCommHandler.m */,
 				B6051747187CACDA00BC168F /* SMUAppDelegate.h */,
 				B6051748187CACDA00BC168F /* SMUAppDelegate.m */,
 				B605174A187CACDA00BC168F /* Main.storyboard */,
@@ -252,6 +259,7 @@
 			files = (
 				B6051749187CACDA00BC168F /* SMUAppDelegate.m in Sources */,
 				B605174F187CACDA00BC168F /* SMUViewController.m in Sources */,
+				B6051770187CF0F100BC168F /* HttpCommHandler.m in Sources */,
 				B6051745187CACDA00BC168F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
