@@ -11,6 +11,25 @@
 NSString * const SUCCESSFUL_UPLOAD_RESPONSE = @"Success";
 NSString * const FAILED_UPLOAD_RESPONSE = @"Failure";
 
+
+//-(NSString*) sendPostRequestTo: (NSURL*) url
+//                      withBody: (NSData*) requestBody
+//         withCompletionHandler: ()
+//{
+//    NSLog(@"HTTP Request");
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+//    NSLog(@"Request URL: %@",[url absoluteString]);
+//    NSLog(@"Request Body: %@",[[NSString alloc] initWithData:requestBody encoding:NSUTF8StringEncoding]);
+//    [request setHTTPMethod:@"POST"];
+//    [request setHTTPBody:requestBody];
+//    NSURLResponse *response = NULL;
+//    NSError *requestError = NULL;
+//    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&requestError];
+//    NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+//    NSLog(@"Response: %@",responseString);
+//    return responseString;
+//}
+
 -(NSString*) sendPostRequestTo: (NSURL*) url withBody: (NSData*) requestBody
 {
     NSLog(@"HTTP Request");

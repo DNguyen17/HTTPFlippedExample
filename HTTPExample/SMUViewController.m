@@ -6,18 +6,14 @@
 //
 
 #import "SMUViewController.h"
-#import "HttpCommHandler.h"
 
-@interface SMUViewController ()
-- (IBAction)sendPostRequest:(id)sender;
-- (IBAction)updateArgumentValue:(id)sender;
-- (IBAction)sendGetRequest:(id)sender;
-- (IBAction)sendPostArray:(id)sender;
-- (IBAction)getDataSetId:(id)sender;
-- (IBAction)updateModel:(id)sender;
-- (IBAction)predictFeature:(id)sender;
+#define SERVER_URL "http://erics-macbook-pro.local:8000"
 
-@property (strong, nonatomic) NSNumber* value;
+@interface SMUViewController () <NSURLSessionTaskDelegate>
+
+@property (strong, nonatomic) NSNumber *value;
+@property (strong,nonatomic) NSURLSession *session;
+@property (strong,nonatomic) NSNumber *dsid;
 
 @end
 
@@ -29,148 +25,222 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     self.value = @(0.5);
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)sendPostRequest:(id)sender {
+    _dsid = @1;
     
-    NSURL* url = [NSURL URLWithString:@"http://eric-mac-pro.local:8000/DoPost"];
-
-    NSData *requestBody=[[NSString stringWithFormat:@"arg1=%f",[self.value floatValue]]
-                         dataUsingEncoding:NSUTF8StringEncoding];
+    //setup NSURLSession (background ephemeral)
+    NSURLSessionConfiguration *sessionConfig =
+    [NSURLSessionConfiguration ephemeralSessionConfiguration];
     
-    HttpCommHandler *httpHandler = [[HttpCommHandler alloc]init];
-    NSString *response = [httpHandler sendPostRequestTo:url withBody:requestBody];
+//    [sessionConfig setHTTPAdditionalHeaders:
+//     @{@"Accept": @"application/json"}];
     
-    NSDictionary* responseData = [httpHandler getTupleFromJSONString:response];
+    sessionConfig.timeoutIntervalForRequest = 5.0;
+    sessionConfig.timeoutIntervalForResource = 8.0;
+    sessionConfig.HTTPMaximumConnectionsPerHost = 1;
     
-    NSString *arg1 = [NSString stringWithFormat:@"%@",[responseData valueForKey:@"arg1"]];
+    self.session =
+    [NSURLSession sessionWithConfiguration:sessionConfig
+                                  delegate:self
+                             delegateQueue:nil];
     
-    NSLog(@"received %@",arg1);
 
 }
 
-
-
-//-(void)sendPostArray{
-//    
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,  NSUserDomainMask, YES);
-//    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
-//    
-//    documentsDirectoryPath= [documentsDirectoryPath stringByAppendingString:@"/"];
-//    documentsDirectoryPath = [documentsDirectoryPath stringByAppendingString:@"temp.txt"];
-//    
-//    const char *filePathString;
-//    
-//    filePathString = [documentsDirectoryPath UTF8String];
-//    
-//    FILE *fid = fopen(filePathString,"w");
-//    fprintf(fid,"%f,%f,%f\n",[self.value floatValue],1.0,10.1);
-//    fclose(fid);
-//    
-//    HttpCommHandler *httpHandler = [[HttpCommHandler alloc]init];
-//    NSURL *url = [NSURL URLWithString:@"http://users-mac-Mini.local:8000/Upload"];
-//    
-//    NSData *myData = [NSData dataWithContentsOfFile:documentsDirectoryPath];
-//    
-//    NSString *fileName = [NSString stringWithFormat:@"%f",CFAbsoluteTimeGetCurrent()];
-//    
-//    NSString *secondResponse = [httpHandler sendPostWithData:myData at:url withFileName:fileName andServerSessionID:@"1_1_1"];
-//    
-//}
 
 
 - (IBAction)updateArgumentValue:(UISlider*)sender {
     self.value = @(sender.value);
 }
 
+- (IBAction)sendPostRequest:(id)sender {
+    // setup the url
+    NSString *baseURL = [NSString stringWithFormat:@"%s/DoPost",SERVER_URL];
+    NSURL *postUrl = [NSURL URLWithString:baseURL];
+    
+    // data to send in body of post request (style of get arguments)
+    NSData *requestBody=[[NSString stringWithFormat:@"arg1=%.4f",5.9]
+                         dataUsingEncoding:NSUTF8StringEncoding];
+    
+    // create a custom HTTP POST request
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:postUrl];
+
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:requestBody];
+    
+    // start the request
+    NSURLSessionDataTask *postTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSLog(@"%@",response);
+        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &error];
+        NSLog(@"%@",jsonDictionary);
+    }];
+    [postTask resume];
+
+}
+
+
+- (IBAction)sendJSONPostRequest:(id)sender {
+    // an example for sending some data as JSON in the HTTP body
+    // setup the url
+    NSString *baseURL = [NSString stringWithFormat:@"%s/PostWithJson",SERVER_URL];
+    NSURL *postUrl = [NSURL URLWithString:baseURL];
+    
+    // data to send in body of post request (send arguments as json)
+    NSError *error = nil;
+    NSDictionary *jsonUpload = @{@"arg":@[@3.2,@4.5,self.value]};
+    NSData *requestBody=[NSJSONSerialization dataWithJSONObject:jsonUpload options:NSJSONWritingPrettyPrinted error:&error];
+    
+    // create a custom HTTP POST request
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:postUrl];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:requestBody];
+    
+    // start the request, print the responses etc.
+    NSURLSessionDataTask *postTask = [self.session dataTaskWithRequest:request
+         completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            NSLog(@"%@",response);
+            NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error: &error];
+            NSLog(@"%@",jsonDictionary);
+        }];
+    [postTask resume];
+    
+}
+
+
 - (IBAction)sendGetRequest:(id)sender {
     
-    NSString* url = [[NSString alloc]initWithFormat:@"http://users-mac-mini.local:8000/DoPost?arg1=%.2f",
-                     [self.value floatValue]];
+    // create a GET request and get the reponse back as NSData
+    NSString *baseURL = [NSString stringWithFormat:@"%s/GetExample",SERVER_URL];
+    NSString *query = [NSString stringWithFormat:@"?arg=%.2f",0.45];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
-                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                       timeoutInterval:10];
     
-    [request setHTTPMethod: @"GET"];
-    
-    NSError *requestError;
-    NSHTTPURLResponse *urlResponse = nil;
-    
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request
-                                              returningResponse:&urlResponse
-                                                          error:&requestError];
-    
-    NSString* newStr = [[NSString alloc] initWithData:responseData
-                                             encoding:NSUTF8StringEncoding];
-    
-    NSInteger code = [urlResponse statusCode];
-    
-    NSLog(@" recieved \"%@\" from server \n code: %ld",newStr,(long)code);
+    NSURL *getUrl = [NSURL URLWithString: [baseURL stringByAppendingString:query]];
+    NSURLSessionDataTask *dataTask = [self.session dataTaskWithURL:getUrl
+                 completionHandler:^(NSData *data,
+                                     NSURLResponse *response,
+                                     NSError *error) {
+                     NSLog(@"%@",response);
+                     NSLog(@"%@",[[NSString alloc] initWithData: data encoding:NSUTF8StringEncoding]);
+                     
+                 }];
+    [dataTask resume]; // start the task
 }
 
 - (IBAction)sendPostArray:(id)sender {
+    // Add a data point and a label to the database for the current dataset ID
     
-    NSURL* url = [NSURL URLWithString:@"http://users-mac-Mini.local:8000/AddDataPoint"];
+    // setup the url
+    NSString *baseURL = [NSString stringWithFormat:@"%s/AddDataPoint",SERVER_URL];
+    NSURL *postUrl = [NSURL URLWithString:baseURL];
     
+    
+    // make an array of feature data
+    // and place inside a dictionary with the label and dsid
     float data = drand48()*10.0;
-    NSData *requestBody=[[NSString stringWithFormat:@"feature=%f,%f,%f&label=%d&dsid=1",data,data*drand48(),data*data,(int)data]
-                         dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error = nil;
+    NSDictionary *jsonUpload = @{@"feature":@[@(data),@(data*drand48()),@(data*data)],
+                                 @"label":@((int)data),
+                                 @"dsid":self.dsid};
     
-    HttpCommHandler *httpHandler = [[HttpCommHandler alloc]init];
-    NSString *response = [httpHandler sendPostRequestTo:url withBody:requestBody];
+    NSData *requestBody=[NSJSONSerialization dataWithJSONObject:jsonUpload options:NSJSONWritingPrettyPrinted error:&error];
     
-    NSDictionary* responseData = [httpHandler getTupleFromJSONString:response];
+    // create a custom HTTP POST request
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:postUrl];
     
-    NSString *featuresResponse = [NSString stringWithFormat:@"%@",[responseData valueForKey:@"feature"]];
-    NSString *labelResponse = [NSString stringWithFormat:@"%@",[responseData valueForKey:@"label"]];
-    NSLog(@"received %@ and %@",featuresResponse,labelResponse);
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:requestBody];
+    
+    // start the request, print the responses etc.
+    NSURLSessionDataTask *postTask = [self.session dataTaskWithRequest:request
+     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+         NSLog(@"%@",response);
+         NSDictionary *responseData = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error: &error];
+         
+         // we should get back the feature data from the server and the label it parsed
+         NSString *featuresResponse = [NSString stringWithFormat:@"%@",[responseData valueForKey:@"feature"]];
+         NSString *labelResponse = [NSString stringWithFormat:@"%@",[responseData valueForKey:@"label"]];
+         NSLog(@"received %@ and %@",featuresResponse,labelResponse);
+     }];
+    [postTask resume];
 }
 
 - (IBAction)getDataSetId:(id)sender {
-    NSURL* url = [NSURL URLWithString:@"http://users-mac-Mini.local:8000/GetNewDatasetId"];
+    // get a new dataset ID from the server (gives back a new dataset id)
+    // Note that if data is not uploaded, the server may issue the same dsid to another requester
+    // ---how might you solve this problem?---
     
-    NSData *requestBody=[@"" dataUsingEncoding:NSUTF8StringEncoding];
-    
-    HttpCommHandler *httpHandler = [[HttpCommHandler alloc]init];
-    NSString *response = [httpHandler sendPostRequestTo:url withBody:requestBody];
-    
-    NSDictionary* responseData = [httpHandler getTupleFromJSONString:response];
+    // create a GET request and get the reponse back as NSData
+    NSString *baseURL = [NSString stringWithFormat:@"%s/GetNewDatasetId",SERVER_URL];
+
+    NSURL *getUrl = [NSURL URLWithString: baseURL];
+    NSURLSessionDataTask *dataTask = [self.session dataTaskWithURL:getUrl
+     completionHandler:^(NSData *data,
+                         NSURLResponse *response,
+                         NSError *error) {
+         NSLog(@"%@",response);
+         NSDictionary *responseData = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error: &error];
+         self.dsid = responseData[@"dsid"];
+         NSLog(@"New dataset id is %@",self.dsid);
+         
+     }];
+    [dataTask resume]; // start the task
     
 }
 
 - (IBAction)updateModel:(id)sender {
-    NSURL* url = [NSURL URLWithString:@"http://users-mac-Mini.local:8000/UpdateModel"];
+    // tell the server to train a new model for the given dataset id (dsid)
     
-    NSData *requestBody=[@"dsid=1" dataUsingEncoding:NSUTF8StringEncoding];
+    // create a GET request and get the reponse back as NSData
+    NSString *baseURL = [NSString stringWithFormat:@"%s/UpdateModel",SERVER_URL];
+    NSString *query = [NSString stringWithFormat:@"?dsid=%d",[self.dsid intValue]];
     
-    HttpCommHandler *httpHandler = [[HttpCommHandler alloc]init];
-    NSString *response = [httpHandler sendPostRequestTo:url withBody:requestBody];
-    
-    NSDictionary* responseData = [httpHandler getTupleFromJSONString:response];
+    NSURL *getUrl = [NSURL URLWithString: [baseURL stringByAppendingString:query]];
+    NSURLSessionDataTask *dataTask = [self.session dataTaskWithURL:getUrl
+         completionHandler:^(NSData *data,
+                             NSURLResponse *response,
+                             NSError *error) {
+             // we should get back the accuracy of the model
+             NSLog(@"%@",response);
+             NSDictionary *responseData = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error: &error];
+             NSLog(@"Accuracy using resubstitution: %@",responseData[@"resubAccuracy"]);
+             
+         }];
+    [dataTask resume]; // start the task
 }
 
 - (IBAction)predictFeature:(id)sender {
-    NSURL* url = [NSURL URLWithString:@"http://users-mac-Mini.local:8000/PredictOne"];
+    // send the server new feature data and request back a prediction of the class
     
+    // setup the url
+    NSString *baseURL = [NSString stringWithFormat:@"%s/PredictOne",SERVER_URL];
+    NSURL *postUrl = [NSURL URLWithString:baseURL];
+    
+    
+    // data to send in body of post request (send arguments as json)
     float data = drand48()*10.0;
-    NSData *requestBody=[[NSString stringWithFormat:@"feature=%f,%f,%f&dsid=1",data,data*drand48(),data*data]
-                         dataUsingEncoding:NSUTF8StringEncoding];
     int label = (int)data;
+    NSError *error = nil;
+    NSDictionary *jsonUpload = @{@"feature":@[@(data),@(data*drand48()),@(data*data)],
+                                 @"dsid":self.dsid};
     
-    HttpCommHandler *httpHandler = [[HttpCommHandler alloc]init];
-    NSString *response = [httpHandler sendPostRequestTo:url withBody:requestBody];
+    NSData *requestBody=[NSJSONSerialization dataWithJSONObject:jsonUpload options:NSJSONWritingPrettyPrinted error:&error];
     
-    NSDictionary* responseData = [httpHandler getTupleFromJSONString:response];
+    // create a custom HTTP POST request
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:postUrl];
     
-    NSString *labelResponse = [NSString stringWithFormat:@"%@",[responseData valueForKey:@"prediction"]];
-    NSLog(@"Actual label:%d prediction:%@",label,labelResponse);
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:requestBody];
+    
+    // start the request, print the responses etc.
+    NSURLSessionDataTask *postTask = [self.session dataTaskWithRequest:request
+         completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+             NSLog(@"%@",response);
+             NSDictionary *responseData = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error: &error];
+             
+             NSString *labelResponse = [NSString stringWithFormat:@"%@",[responseData valueForKey:@"prediction"]];
+             NSLog(@"Actual label:%d prediction:%@",label,labelResponse);
+         }];
+    [postTask resume];
 }
 
 
