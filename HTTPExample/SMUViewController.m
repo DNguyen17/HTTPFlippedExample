@@ -27,12 +27,9 @@
     self.value = @(0.5);
     _dsid = @1;
     
-    //setup NSURLSession (background ephemeral)
+    //setup NSURLSession (ephemeral)
     NSURLSessionConfiguration *sessionConfig =
     [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    
-//    [sessionConfig setHTTPAdditionalHeaders:
-//     @{@"Accept": @"application/json"}];
     
     sessionConfig.timeoutIntervalForRequest = 5.0;
     sessionConfig.timeoutIntervalForResource = 8.0;
@@ -111,7 +108,7 @@
     
     // create a GET request and get the reponse back as NSData
     NSString *baseURL = [NSString stringWithFormat:@"%s/GetExample",SERVER_URL];
-    NSString *query = [NSString stringWithFormat:@"?arg=%.2f",0.45];
+    NSString *query = [NSString stringWithFormat:@"?arg=%.2f",[self.value floatValue]];
     
     
     NSURL *getUrl = [NSURL URLWithString: [baseURL stringByAppendingString:query]];
@@ -124,7 +121,9 @@
                      
                  }];
     [dataTask resume]; // start the task
+
 }
+
 
 - (IBAction)sendPostArray:(id)sender {
     // Add a data point and a label to the database for the current dataset ID
@@ -162,6 +161,7 @@
          NSLog(@"received %@ and %@",featuresResponse,labelResponse);
      }];
     [postTask resume];
+    
 }
 
 - (IBAction)getDataSetId:(id)sender {
