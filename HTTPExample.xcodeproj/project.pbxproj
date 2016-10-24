@@ -21,6 +21,7 @@
 		B605175A187CACDB00BC168F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B605173C187CACDA00BC168F /* UIKit.framework */; };
 		B6051762187CACDB00BC168F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6051760187CACDB00BC168F /* InfoPlist.strings */; };
 		B6051764187CACDB00BC168F /* HTTPExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B6051763187CACDB00BC168F /* HTTPExampleTests.m */; };
+		B64EA47918F7AE8600C44EDB /* RingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = B64EA47818F7AE8600C44EDB /* RingBuffer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		B6051761187CACDB00BC168F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B6051763187CACDB00BC168F /* HTTPExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTTPExampleTests.m; sourceTree = "<group>"; };
 		B605176D187CAD5D00BC168F /* HTTPConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTTPConstants.h; sourceTree = "<group>"; };
+		B64EA47718F7AE8600C44EDB /* RingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RingBuffer.h; sourceTree = "<group>"; };
+		B64EA47818F7AE8600C44EDB /* RingBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RingBuffer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 				B605174A187CACDA00BC168F /* Main.storyboard */,
 				B605174D187CACDA00BC168F /* SMUViewController.h */,
 				B605174E187CACDA00BC168F /* SMUViewController.m */,
+				B64EA47718F7AE8600C44EDB /* RingBuffer.h */,
+				B64EA47818F7AE8600C44EDB /* RingBuffer.m */,
 				B6051750187CACDA00BC168F /* Images.xcassets */,
 				B605173F187CACDA00BC168F /* Supporting Files */,
 			);
@@ -199,9 +204,12 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SMU;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Eric Larson";
 				TargetAttributes = {
+					B6051734187CACDA00BC168F = {
+						DevelopmentTeam = APD62CDC25;
+					};
 					B6051755187CACDB00BC168F = {
 						TestTargetID = B6051734187CACDA00BC168F;
 					};
@@ -253,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6051749187CACDA00BC168F /* SMUAppDelegate.m in Sources */,
+				B64EA47918F7AE8600C44EDB /* RingBuffer.m in Sources */,
 				B605174F187CACDA00BC168F /* SMUViewController.m in Sources */,
 				B6051745187CACDA00BC168F /* main.m in Sources */,
 			);
@@ -308,7 +317,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -347,7 +355,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -381,6 +388,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = APD62CDC25;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HTTPExample/HTTPExample-Prefix.pch";
 				INFOPLIST_FILE = "HTTPExample/HTTPExample-Info.plist";
@@ -394,6 +402,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = APD62CDC25;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HTTPExample/HTTPExample-Prefix.pch";
 				INFOPLIST_FILE = "HTTPExample/HTTPExample-Info.plist";
@@ -405,7 +414,6 @@
 		B605176B187CACDB00BC168F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HTTPExample.app/HTTPExample";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -428,7 +436,6 @@
 		B605176C187CACDB00BC168F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HTTPExample.app/HTTPExample";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

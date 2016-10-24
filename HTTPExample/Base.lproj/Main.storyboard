@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11521.1" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11517.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -13,89 +15,153 @@
                         <viewControllerLayoutGuide type="bottom" id="afZ-Ae-7vx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qjZ-5i-P5q">
-                                <rect key="frame" x="20" y="38" width="133" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Send Post Request">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rve-Oq-K84">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="103" id="fsP-oN-Frc"/>
+                                </constraints>
+                                <state key="normal" title="Calibrate Once">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="sendPostRequest:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="SGl-Bo-c0X"/>
+                                    <action selector="startCalibration:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="dku-Ib-cEa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dd0-sN-wXA">
-                                <rect key="frame" x="178" y="38" width="116" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Send Post JSON">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sendJSONPostRequest:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Cet-AJ-eqq"/>
-                                </connections>
-                            </button>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="hP2-GO-fDT">
-                                <rect key="frame" x="18" y="137" width="284" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="updateArgumentValue:" destination="vXZ-lx-hvc" eventType="valueChanged" id="W57-3o-603"/>
-                                </connections>
-                            </slider>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EfY-3C-1pd">
-                                <rect key="frame" x="20" y="85" width="126" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Send Get Request">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sendGetRequest:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="P5B-Kb-E09"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rve-Oq-K84">
-                                <rect key="frame" x="20" y="193" width="124" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Labeled Data">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sendPostArray:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="jUd-Kn-C1q"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZF-0p-USN">
-                                <rect key="frame" x="20" y="231" width="65" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Get DSID">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZF-0p-USN">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="97" id="AgI-bK-OPZ"/>
+                                </constraints>
+                                <state key="normal" title="Get new DSID">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="getDataSetId:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="JL6-QP-oOB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="or5-gC-hNt">
-                                <rect key="frame" x="20" y="269" width="85" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="or5-gC-hNt">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="85" id="BBd-RE-ZIO"/>
+                                </constraints>
                                 <state key="normal" title="Make Model">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="updateModel:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="7Fz-IW-pMA"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbm-H0-0h5">
-                                <rect key="frame" x="23" y="307" width="82" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Predict One">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCm-Lk-DJU">
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKu-0p-UG6">
+                                        <frame key="frameInset" minX="30" minY="30" width="30" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="IMh-lo-OiR"/>
+                                    <constraint firstAttribute="width" constant="90" id="T5E-ZD-1Tz"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U1M-ei-dqL">
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGR-RK-LsG">
+                                        <frame key="frameInset" minX="30" minY="29" width="30" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="tTz-UW-lIa"/>
+                                    <constraint firstAttribute="width" constant="90" id="zYC-bn-iYi"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PWb-77-gKR">
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T2F-Al-1Lb">
+                                        <frame key="frameInset" minX="30" minY="30" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="KNF-oL-CSo"/>
+                                    <constraint firstAttribute="height" constant="90" id="kN2-fa-daQ"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Xu-JD-Ctb">
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M0e-aH-Tot">
+                                        <frame key="frameInset" minX="30" minY="29" width="30" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="Ezq-eC-Qd4"/>
+                                    <constraint firstAttribute="height" constant="90" id="WdF-IW-WsO"/>
+                                </constraints>
+                            </view>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10000000000000001" minValue="0.0" maxValue="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4Ow-6l-Nis">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="332" id="vO9-yb-YJ8"/>
+                                </constraints>
                                 <connections>
-                                    <action selector="predictFeature:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="OfM-qw-LbR"/>
+                                    <action selector="sliderChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="84k-K7-P8k"/>
                                 </connections>
-                            </button>
+                            </slider>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DSID: 6" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKd-sM-pCx">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="PWb-77-gKR" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="0Hg-w2-3bu"/>
+                            <constraint firstItem="QKd-sM-pCx" firstAttribute="leading" secondItem="qZF-0p-USN" secondAttribute="trailing" constant="28" id="4w0-A3-b6e"/>
+                            <constraint firstItem="afZ-Ae-7vx" firstAttribute="top" secondItem="U1M-ei-dqL" secondAttribute="bottom" id="51Q-Ia-cBU"/>
+                            <constraint firstItem="afZ-Ae-7vx" firstAttribute="top" secondItem="9Xu-JD-Ctb" secondAttribute="bottom" id="7mF-3b-4my"/>
+                            <constraint firstItem="Rve-Oq-K84" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="FaK-Wd-iQJ"/>
+                            <constraint firstItem="4Ow-6l-Nis" firstAttribute="centerX" secondItem="or5-gC-hNt" secondAttribute="centerX" id="GOW-6F-EXT"/>
+                            <constraint firstItem="4Ow-6l-Nis" firstAttribute="centerX" secondItem="Rve-Oq-K84" secondAttribute="centerX" id="Ic2-t4-mcf"/>
+                            <constraint firstItem="Rve-Oq-K84" firstAttribute="top" secondItem="Fjm-g5-jpD" secondAttribute="bottom" constant="87" id="Isw-C0-PRW"/>
+                            <constraint firstItem="4Ow-6l-Nis" firstAttribute="centerX" secondItem="qZF-0p-USN" secondAttribute="centerX" id="JYq-L8-0vD"/>
+                            <constraint firstAttribute="trailing" secondItem="HCm-Lk-DJU" secondAttribute="trailing" id="Nic-Az-TNr"/>
+                            <constraint firstItem="PWb-77-gKR" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="Z5G-Ck-p1G"/>
+                            <constraint firstItem="4Ow-6l-Nis" firstAttribute="top" secondItem="or5-gC-hNt" secondAttribute="bottom" constant="8" symbolic="YES" id="bI3-fd-SP0"/>
+                            <constraint firstItem="9Xu-JD-Ctb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="byn-He-zMJ"/>
+                            <constraint firstItem="QKd-sM-pCx" firstAttribute="centerY" secondItem="qZF-0p-USN" secondAttribute="centerY" id="cii-W9-rjn"/>
+                            <constraint firstItem="qZF-0p-USN" firstAttribute="top" secondItem="Rve-Oq-K84" secondAttribute="bottom" constant="8" symbolic="YES" id="pU8-aF-1Rs"/>
+                            <constraint firstAttribute="trailing" secondItem="U1M-ei-dqL" secondAttribute="trailing" id="sbS-zW-IuV"/>
+                            <constraint firstItem="or5-gC-hNt" firstAttribute="top" secondItem="qZF-0p-USN" secondAttribute="bottom" constant="8" symbolic="YES" id="vOe-NL-yXt"/>
+                            <constraint firstItem="HCm-Lk-DJU" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="w7E-7f-c7p"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bottomLeft" destination="9Xu-JD-Ctb" id="GFl-uu-9w5"/>
+                        <outlet property="bottomRight" destination="U1M-ei-dqL" id="nNg-aQ-sVB"/>
+                        <outlet property="dsidLabel" destination="QKd-sM-pCx" id="DKB-n9-xG9"/>
+                        <outlet property="topLeft" destination="PWb-77-gKR" id="Rfa-qE-ecg"/>
+                        <outlet property="topRight" destination="HCm-Lk-DJU" id="leh-c5-nLA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
@@ -103,7 +169,7 @@
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
 </document>
