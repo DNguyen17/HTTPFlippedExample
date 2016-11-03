@@ -208,7 +208,7 @@
 				ORGANIZATIONNAME = "Eric Larson";
 				TargetAttributes = {
 					B6051734187CACDA00BC168F = {
-						DevelopmentTeam = APD62CDC25;
+						DevelopmentTeam = F69WJ27LN4;
 					};
 					B6051755187CACDB00BC168F = {
 						TestTargetID = B6051734187CACDA00BC168F;
@@ -386,7 +386,7 @@
 		B6051768187CACDB00BC168F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = APD62CDC25;
+				DEVELOPMENT_TEAM = F69WJ27LN4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HTTPExample/HTTPExample-Prefix.pch";
 				INFOPLIST_FILE = "HTTPExample/HTTPExample-Info.plist";
@@ -399,7 +399,7 @@
 		B6051769187CACDB00BC168F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = APD62CDC25;
+				DEVELOPMENT_TEAM = F69WJ27LN4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HTTPExample/HTTPExample-Prefix.pch";
 				INFOPLIST_FILE = "HTTPExample/HTTPExample-Info.plist";
